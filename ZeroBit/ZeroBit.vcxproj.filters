@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="FileCompressorGUI.cpp">
+      <Filter>CppGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="DragAndDropList.cpp">
+      <Filter>CppGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Compressor.cpp">
+      <Filter>CompressorHeart</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="DragAndDropList.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FileCompressorGUI.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{598029cb-4cc2-4e88-b3d7-2eaefdca7777}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CppGUI">
+      <UniqueIdentifier>{2045bfe5-853c-4ede-b6b4-32715cea24da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGUI">
+      <UniqueIdentifier>{d3f7a7ad-5398-4fd5-bdb0-42a4bac38a25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CompressorHeart">
+      <UniqueIdentifier>{a81da2c1-5daf-437d-843e-fb930dde320f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Compressor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="FileCompressorGUI.qrc">
+      <Filter>QtGUI</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="FileCompressorGUI.ui">
+      <Filter>QtGUI</Filter>
+    </QtUic>
+  </ItemGroup>
+</Project>
