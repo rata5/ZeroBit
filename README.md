@@ -1,4 +1,4 @@
-ZeroBit - A high-performance file compressor written in modern C++, leveraging a multi-stage pipeline-including **Burrows–Wheeler Transform (BWT)**, **Move-To-Front (MTF)**, **Zero Run-Length Encoding (RLE)**, and an adaptive **context-mixing range coder**-to achieve efficient, lossless compression. Specifically created for small text files.
+ZeroBit - A high-performance file compressor written in modern C++, leveraging a multi-stage pipeline-including Burrows-Wheeler Transform (BWT), Move-To-Front (MTF), Zero Run-Length Encoding (RLE), and an adaptive context-mixing range coder-to achieve efficient, lossless compression. Specifically created for small text files.
 
 ---
 
