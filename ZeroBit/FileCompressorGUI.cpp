@@ -97,8 +97,6 @@ void FileCompressorGUI::startCompression() {
     progressBar->setValue(0);
     int fileCount = dragAndDropList->count();
 
-    QStringList allowedTextExtensions = { "txt", "csv", "log", "xml", "html", "json", "md", "ini", "yaml", "yml" };
-
     for (int i = 0; i < fileCount; ++i) {
         QListWidgetItem* item = dragAndDropList->item(i);
         QString inputFilePath = item->text();
@@ -115,11 +113,6 @@ void FileCompressorGUI::startCompression() {
             }
             else {
                 QString ext = inputInfo.suffix().toLower();
-                if (!allowedTextExtensions.contains(ext)) {
-                    QMessageBox::warning(this, "Unsupported File", QString("Skipping unsupported file: %1").arg(inputFilePath));
-                    continue;
-                }
-
                 outputFilePath = dir.filePath(inputInfo.fileName() + ".srr");  
                 Compressor::compress(inputFilePath.toStdString(), outputFilePath.toStdString());
             }
