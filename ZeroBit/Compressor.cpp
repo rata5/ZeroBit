@@ -13,8 +13,6 @@
 
 namespace fs = std::filesystem;
 
-static constexpr size_t BLOCK_SIZE = 100 * 1024;
-
 static std::pair<std::string, uint32_t> bwtTransform(const std::string& s) {
     int n = int(s.size());
     std::vector<int> idx(n);
@@ -417,23 +415,31 @@ void Compressor::compress(const std::string& inPath, const std::string& outPath)
     namespace fs = std::filesystem;
     if (fs::exists(outPath))
         throw std::runtime_error("Output already exists");
+
     std::ifstream fin(inPath, std::ios::binary);
-    if (!fin) throw std::runtime_error("Cannot open input");
+    if (!fin) 
+        throw std::runtime_error("Cannot open input");
+
     std::string input((std::istreambuf_iterator<char>(fin)), {});
     fin.close();
     std::ofstream out(outPath, std::ios::binary);
-    if (!out) throw std::runtime_error("Cannot open output");
+    if (!out) 
+        throw std::runtime_error("Cannot open output");
+
     uint64_t fullSize = input.size();
     out.write(reinterpret_cast<const char*>(&fullSize), sizeof(fullSize));
+
     ByteContextModel bcm1(1), bcm2(2), bcm3(3), bcm4(4);
     BitContextModel bitm(24);
     MatchModel match4(4), match8(8);
     LZPModel lzp;
     std::vector<IModel*> mods = { &bcm1, &bcm2, &bcm3, &bcm4, &bitm, &match4, &match8, &lzp };
     Mixer mixer(mods, 0.001);
+
     auto [bwtLast, primary] = bwtTransform(input);
     auto mtf = mtfEncode(bwtLast);
     auto rle = rleZero(mtf);
+
     std::ostringstream tmp(std::ios::binary);
     RangeCoder coder(tmp);
     for (uint8_t byte : rle) {
@@ -447,11 +453,13 @@ void Compressor::compress(const std::string& inPath, const std::string& outPath)
         }
         for (auto* m : mods) m->updateByte(byte);
     }
+
     coder.finish();
     std::string compData = tmp.str();
     uint32_t blockLen = uint32_t(input.size());
     uint32_t rleCount = uint32_t(rle.size());
     uint32_t compSize = uint32_t(compData.size());
+
     out.write(reinterpret_cast<const char*>(&blockLen), sizeof(blockLen));
     out.write(reinterpret_cast<const char*>(&primary), sizeof(primary));
     out.write(reinterpret_cast<const char*>(&rleCount), sizeof(rleCount));
